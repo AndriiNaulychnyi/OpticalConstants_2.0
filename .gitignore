@@ -4,5 +4,6 @@
 target
 build
 tmp
+uploadFiles
 
 *.log
