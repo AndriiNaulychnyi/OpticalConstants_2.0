@@ -50,7 +50,7 @@ public class CalculationResult {
         this.k = k;
         this.n = n;
         this.n0 = 1.0;
-        this.n2 = 1.43;
+        this.n2 = 1.5;
         this.d = incomingData.getD();
         this.lambda = incomingData.getLambda();
         this.tSub = incomingData.getTSub();
@@ -94,13 +94,13 @@ public class CalculationResult {
     private void initC() {
         c1 = (n0 * n0 - n * n - k * k) * (n * n - n2 * n2 + k * k) - (4 * n0 * n2 * k * k);
         c2 = (n0 * n0 - n * n - k * k) * (n * n - n2 * n2 + k * k) + (4 * n0 * n2 * k * k);
-        c3 = (pow(n2 + n, 2) + pow(k, 2)) * (pow(n - n0, 2) + pow(k, 2));
+        c3 = (n2 * n2 - n * n - k * k) * (n * n - n0 * n0 + k * k) - (4 * n2 * n0 * k * k);
     }
 
     private void initD() {
         d1 = (n * n + n0 * n2 + k * k) * (n0 - n2);
         d2 = (n * n - n0 * n2 + k * k) * (n0 + n2);
-        d3 = (n * n + n0 * n2 + k * k) * (n2 - n0);
+        d3 = (n * n + n2 * n0 + k * k) * (n2 - n0);
     }
 
     private void initTNUM() {

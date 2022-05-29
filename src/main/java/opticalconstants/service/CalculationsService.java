@@ -39,9 +39,8 @@ public class CalculationsService {
                     CalculationResult calculationResult= new CalculationResult(k, n, incomingData);
                     if (calculationResult.getTCalc() <= (incomingData.getTFilm() + 0.01) &&
                         calculationResult.getTCalc() >= (incomingData.getTFilm() - 0.01) &&
-                        calculationResult.getRCalc() <= (incomingData.getRFilm() + 0.1) &&
-                        calculationResult.getRCalc() >= (incomingData.getRFilm() - 0.1) &&
-                        n >= k ) {
+                        calculationResult.getRCalc() <= (incomingData.getRFilm() + 0.01) &&
+                        calculationResult.getRCalc() >= (incomingData.getRFilm() - 0.01)) {
                         calculationResultList.add(calculationResult);
                     }
                 }
