@@ -15,7 +15,7 @@ public class InputFileParser {
 
     private static final NumberFormat NUM_FORMAT = NumberFormat.getInstance(Locale.FRANCE);
 
-    public List<IncomingData> pars(File file) {
+    public List<IncomingData> pars(int d, File file) {
         List<IncomingData> incomingDataList = new ArrayList<>();
 
         try {
@@ -23,7 +23,7 @@ public class InputFileParser {
             while (scan.hasNext()) {
                 String line = scan.nextLine();
                 String[] splitLine = line.split("\\s");
-                incomingDataList.add(saveIncomingData(splitLine));
+                incomingDataList.add(saveIncomingData(splitLine, d));
             }
         } catch (FileNotFoundException | ParseException e) {
             e.fillInStackTrace();
@@ -31,12 +31,13 @@ public class InputFileParser {
         return incomingDataList;
     }
 
-    private IncomingData saveIncomingData(String[] splitLine) throws ParseException {
+    private IncomingData saveIncomingData(String[] splitLine, int d) throws ParseException {
         if (splitLine.length != 5) {
             throw new IllegalArgumentException(
                     "Provided invalid array to parse. Expected length is 5, received " + splitLine.length);
         }
         IncomingData incomingData = new IncomingData();
+        incomingData.setD(d);
         incomingData.setLambda(NUM_FORMAT.parse(splitLine[0]).doubleValue());
         incomingData.setTFilm(NUM_FORMAT.parse(splitLine[1]).doubleValue());
         incomingData.setRFilm(NUM_FORMAT.parse(splitLine[2]).doubleValue());
