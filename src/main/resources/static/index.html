@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Optical Constants</title>
+
+    <link rel="stylesheet" href="bootstrap-5.2.0/css/bootstrap.min.css">
+
+    <style>
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar bg-dark">
+    <div class="container-fluid ">
+        <span class="navbar-brand mb-0 h1 text-light">Navbar</span>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+
+            <form onsubmit="uploadFile(); return false">
+                <div class="row mb-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">d</span>
+                        <input type="text" id="inputD" class="form-control" aria-label="d"
+                               aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="dataFile" name="dataFile" required>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Надіслати</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Ajax JavaScript File Upload Logic -->
+<script>
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("file", dataFile.files[0]);
+        let d = document.getElementById("inputD").value;
+        formData.append("d", d);
+        await fetch('/upload', {
+            method: "POST",
+            body: formData
+        })
+            .then(resp => resp.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                // the filename you want
+                a.download = 'result-'+ new Date().toISOString() + '.txt';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(() => alert('Щось пішло не так!'));
+    }
+</script>
+<script type="application/javascript" href="bootstrap-5.2.0/js/bootstrap.js"></script>
+</body>
+</html>
